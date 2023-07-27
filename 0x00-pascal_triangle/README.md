@@ -1,0 +1,1 @@
+The pascal_triangle py file is meant to print pascal  triangle
