@@ -1,31 +1,65 @@
 #!/usr/bin/python3
+"""Solves the lock boxes puzzle """
 
-"""
-a function to determine if all boxes have been visited
-@boxes: boxes containing keys
-return true if all boxes can be unlocked else false
-"""
+
+def look_next_opened_box(opened_boxes):
+    """Looks for the next opened box
+    Args:
+        opened_boxes (dict): Dictionary which contains boxes already opened
+    Returns:
+        list: List with the keys contained in the opened box
+    """
+    for index, box in opened_boxes.items():
+        if box.get('status') == 'opened':
+            box['status'] = 'opened/checked'
+            return box.get('keys')
+    return None
 
 
 def canUnlockAll(boxes):
-
+    """Check if all boxes can be opened
+    Args:
+        boxes (list): List which contain all the boxes with the keys
+    Returns:
+        bool: True if all boxes can be opened, otherwise, False
     """
-    create a set to keep track of all boxes visited
-    """
-    visited = set()
-    visited.add(0)
+    if len(boxes) <= 1 or boxes == [[]]:
+        return True
 
-    stack = [0]
+    aux = {}
+    while True:
+        if len(aux) == 0:
+            aux[0] = {
+                'status': 'opened',
+                'keys': boxes[0],
+            }
+        keys = look_next_opened_box(aux)
+        if keys:
+            for key in keys:
+                try:
+                    if aux.get(key) and aux.get(key).get('status') \
+                       == 'opened/checked':
+                        continue
+                    aux[key] = {
+                        'status': 'opened',
+                        'keys': boxes[key]
+                    }
+                except (KeyError, IndexError):
+                    continue
+        elif 'opened' in [box.get('status') for box in aux.values()]:
+            continue
+        elif len(aux) == len(boxes):
+            break
+        else:
+            return False
 
-    # perform DFS
-    while stack:
-        box = stack.pop()
+    return len(aux) == len(boxes)
 
-        # check if you have a key to open other boxes
-        for key in boxes[box]:
-            if key not in visited:
-                visited.add(key)
-                stack.append(key)
 
-    # check if all boxes have been visited
-    return len(visited) == len(boxes)
+def main():
+    """Entry point"""
+    canUnlockAll([[]])
+
+
+if __name__ == '__main__':
+    main()
