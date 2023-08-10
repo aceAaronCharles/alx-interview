@@ -1,3 +1,5 @@
+#usr/bin/python3
+"""minimum number of operations to reach n"""
 def minOperations(n):
     if n == 1:
         return 0
