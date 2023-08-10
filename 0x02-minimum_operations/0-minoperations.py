@@ -1,4 +1,4 @@
-#usr/bin/python3
+#!usr/bin/python3
 """minimum number of operations to reach n"""
 def minOperations(n):
 
