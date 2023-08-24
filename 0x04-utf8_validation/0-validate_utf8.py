@@ -3,8 +3,7 @@
 UTF-8 Validation module
 """
 def validUTF8(data):
-    """method that determines if a given data set
-    represents a valid UTF-8 encoding"""
+    """method that determines if a given data set represents a valid UTF-8 encoding"""
     nbytes = 0
 
     m1 = 1 << 7
