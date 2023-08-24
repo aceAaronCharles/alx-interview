@@ -36,6 +36,7 @@ def validUTF8(data):
     
     return num_bytes_to_follow == 0
 
+
 if __name__ == "__main__":
     data = [65]
     print(validUTF8(data))
