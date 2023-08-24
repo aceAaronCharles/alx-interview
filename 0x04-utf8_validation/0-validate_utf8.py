@@ -3,32 +3,25 @@
 UTF-8 Validation module
 """
 def validUTF8(data):
-    """
-    Determines if a given data set represents a valid UTF-8 encoding.
-    Args:
-        data (list[int]): A list of integers representing 1 byte of data each.
-    Returns:
-        bool: True if data is a valid UTF-8 encoding, else False.
-    """
-    num_bytes_to_follow = 0
+    """method that determines if a given data set
+    represents a valid UTF-8 encoding"""
+    nbytes = 0
 
-    for num in data:
-        # If there are bytes to follow, num must start with 10xxxxxx
-        if num_bytes_to_follow:
-            if num >> 6 != 0b10:
+    m1 = 1 << 7
+    m2 = 1 << 6
+
+    for i in data:
+        m = 1 << 7
+        if nbytes == 0:
+            while m & i:
+                nbytes += 1
+                m = m >> 1
+            if nbytes == 0:
+                continue
+            if nbytes == 1 or nbytes > 4:
                 return False
-            num_bytes_to_follow -= 1
         else:
-            # Determine the number of bytes to follow
-            if num >> 7 == 0b0:
-                num_bytes_to_follow = 0
-            elif num >> 5 == 0b110:
-                num_bytes_to_follow = 1
-            elif num >> 4 == 0b1110:
-                num_bytes_to_follow = 2
-            elif num >> 3 == 0b11110:
-                num_bytes_to_follow = 3
-            else:
+            if not (i & m1 and not (i & m2)):
                 return False
-    
-    return num_bytes_to_follow == 0
+        nbytes -= 1
+    return nbytes == 0
