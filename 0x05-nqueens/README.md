@@ -1,0 +1,1 @@
+N queens interview quiz solution 
