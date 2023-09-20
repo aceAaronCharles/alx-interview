@@ -11,7 +11,7 @@ def makeChange(coins, total):
     if not coins or total <= 0:
         return -1  # Handle invalid inputs
 
-    coins.sort(reverse=True)  # Sort coins in descending order for greedy approach
+    coins.sort(reverse=True)  # Sort coins in descending order
     change = 0
 
     for coin in coins:
