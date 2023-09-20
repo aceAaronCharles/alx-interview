@@ -8,26 +8,18 @@ meet a given amount total
 
 
 def makeChange(coins, total):
-    """
-    Returns fewest number of coins needed to meet total
-    """
-    if total <= 0:
-        return 0
+    if not coins or total <= 0:
+        return -1  # Handle invalid inputs
 
-    newValue = total + 1
-    store = {0: 0}
+    coins.sort(reverse=True)  # Sort coins in descending order for greedy approach
+    change = 0
 
-    for i in range(1, total + 1):
-        store[i] = newValue
+    for coin in coins:
+        while coin <= total:
+            total -= coin
+            change += 1
 
-        for coin in coins:
-            current = i - coin
-            if current < 0:
-                continue
+        if total == 0:
+            return change  # Successfully made change
 
-            store[i] = min(store[current] + 1, store[i])
-
-    if store[total] == total + 1:
-        return -1
-
-    return store[total]
+    return -1  # Cannot make change for the given total amount
