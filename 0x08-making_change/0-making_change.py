@@ -8,18 +8,17 @@ meet a given amount total
 
 
 def makeChange(coins, total):
-    if not coins or total <= 0:
-        return -1  # Handle invalid inputs
 
-    coins.sort(reverse=True)  # Sort coins in descending order
+    if not coins or coins is None:
+        return -1
+    if total <= 0:
+        return 0
     change = 0
-
+    coins = sorted(coins)[::-1]
     for coin in coins:
         while coin <= total:
             total -= coin
             change += 1
-
-        if total == 0:
-            return change  # Successfully made change
-
-    return -1  # Cannot make change for the given total amount
+        if (total == 0):
+            return change
+    return -1
