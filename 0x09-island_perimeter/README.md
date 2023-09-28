@@ -1,0 +1,1 @@
+A function to hat returns the perimeter of the island described in grid.
