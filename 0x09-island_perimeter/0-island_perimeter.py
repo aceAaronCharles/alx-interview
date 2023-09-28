@@ -1,11 +1,10 @@
-#!usr/bin/python3
-
-"""
-A function that calculates the perimeter of a given island.
-"""
+#!/usr/bin/python3
 
 
 def island_perimeter(grid):
+    """
+   A function that calculates the perimeter of a given island.
+    """
     if not grid or not grid[0]:
         return 0
     rows = len(grid)
